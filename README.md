@@ -18,4 +18,10 @@ WARNING - Y, B, R2, L2, Menu, Arrows and several keys are already bound at the d
 
 ## Todo
 1. ui improvement(not using winform)
-2. some bug
+2. fix some bug
+
+
+## Resources used
+https://github.com/mKenfenheuer/neptune-hidapi.net
+https://github.com/mKenfenheuer/hidapi.net
+https://github.com/AlexeiScherbakov/osklib
