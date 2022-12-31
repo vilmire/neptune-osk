@@ -1,0 +1,9 @@
+[submodule "neptune-hidapi.net"]
+	path = neptune-hidapi.net
+	url = https://github.com/mKenfenheuer/neptune-hidapi.net.git
+[submodule "hidapi.net"]
+	path = hidapi.net
+	url = https://github.com/mKenfenheuer/hidapi.net.git
+[submodule "osklib"]
+	path = osklib
+	url = https://github.com/AlexeiScherbakov/osklib.git
