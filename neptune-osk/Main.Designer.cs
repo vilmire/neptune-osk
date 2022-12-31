@@ -310,6 +310,7 @@
             this.Controls.Add(this.oskTransparentLabel);
             this.Controls.Add(this.testTextBox);
             this.Controls.Add(this.toggleOskButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Main";
             this.Text = "OnScreenKeyboard Setting";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
