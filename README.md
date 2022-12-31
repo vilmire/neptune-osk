@@ -2,7 +2,7 @@
 Using Windows OSK with Steamdeck Touchpad
 
 ## Usage
-1. Download the release file.
+1. Download the release file. https://github.com/vilmire/neptune-osk/releases
 2. Run neptune-osk.exe
 3. Set up your configuration and enjoy!
 
