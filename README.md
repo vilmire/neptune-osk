@@ -1,10 +1,15 @@
 # Neptune-osk
 Using Windows OSK with Steamdeck Touchpad
 
+![oskImage](/osk.png)
+
+
+
 - 230101
 Dont use with another steamdeck key binding software.
 I will update enable disable tray option.
-![oskImage](/osk.png)
+
+
 
 ## Usage
 1. Download the release file. https://github.com/vilmire/neptune-osk/releases
