@@ -26,5 +26,7 @@ WARNING - Y, B, R2, L2, Menu, Arrows and several keys are already bound at the d
 
 ## Resources used
 https://github.com/mKenfenheuer/neptune-hidapi.net
+
 https://github.com/mKenfenheuer/hidapi.net
+
 https://github.com/AlexeiScherbakov/osklib
