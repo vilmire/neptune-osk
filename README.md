@@ -1,6 +1,6 @@
 # Neptune-osk
 Using Windows OSK with Steamdeck Touchpad
-![oskImage]/osk.png
+![oskImage](/osk.png)
 
 ## Usage
 1. Download the release file. https://github.com/vilmire/neptune-osk/releases
