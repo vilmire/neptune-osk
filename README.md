@@ -7,6 +7,8 @@ Using Windows OSK with Steamdeck Touchpad
 3. Set up your configuration and enjoy!
 
 ## Setting Description 
+video:https://www.youtube.com/watch?v=QA2d-g7zT64
+
 1. OSK Transparent - windows OSK transparent (The Windows OSK is top-most and the z-order cannot be overridden. So I made it transparent.)
 2. OverlabPercentage - The Steamdeck keyboard has an overlap area
 3. Offset_Y - Add pointer Offset to Y (optional, i only use 0)
