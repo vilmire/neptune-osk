@@ -30,6 +30,7 @@ namespace neptune_osk
 {
     public partial class Main : Form
     {
+        bool Enable = true;
         NeptuneController controller;
         static DateTime lastUpdate = DateTime.Now;
         bool isOskOpend = false;
@@ -42,9 +43,7 @@ namespace neptune_osk
 
         Dictionary<NeptuneControllerButton, bool> prevState = new Dictionary<NeptuneControllerButton, bool>();
 
-
         Settings settings = new Settings();
-
         Overlay Overlay = new Overlay();
 
         public Main()
@@ -62,7 +61,26 @@ namespace neptune_osk
             notifyIcon.MouseDoubleClick += NotifyIcon_MouseDoubleClick;
             showToolStripMenuItem.Click += ShowToolStripMenuItem_Click;
             exitToolStripMenuItem.Click += ExitToolStripMenuItem_Click;
+            enableToolStripMenuItem.Click += EnableToolStripMenuItem_Click;
+            disableToolStripMenuItem.Click += DisableToolStripMenuItem_Click;
         }
+
+        private void EnableToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Enable = true;
+            enableCheckBox.Checked = true;
+            enableToolStripMenuItem.Checked = true;
+            disableToolStripMenuItem.Checked = false;
+        }
+
+        private void DisableToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Enable = false;
+            enableCheckBox.Checked = false;
+            enableToolStripMenuItem.Checked = false;
+            disableToolStripMenuItem.Checked = true;
+        }
+
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -87,12 +105,18 @@ namespace neptune_osk
 
         private void OnScreenKeyboardWatcher_ParametersChanged(object sender, EventArgs e)
         {
+            if (Enable == false)
+                return;
+
             if (isInitialized && onScreenKeyboardWatcher.Location.Right - onScreenKeyboardWatcher.Location.Left > 0)
                 Overlay.SetRect(onScreenKeyboardWatcher.Location.Left, onScreenKeyboardWatcher.Location.Top, onScreenKeyboardWatcher.Location.Right - onScreenKeyboardWatcher.Location.Left, onScreenKeyboardWatcher.Location.Bottom - onScreenKeyboardWatcher.Location.Top);
         }
 
         private void OnScreenKeyboardWatcher_KeyboardClosed(object sender, EventArgs e)
         {
+            if (Enable == false)
+                return;
+
             controller.LizardMouseEnabled = true;
             isOskOpend = false;
             Overlay.Hide();
@@ -100,6 +124,9 @@ namespace neptune_osk
 
         private void OnScreenKeyboardWatcher_KeyboardOpened(object sender, EventArgs e)
         {
+            if (Enable == false)
+                return;
+
             isOskOpend = true;
             controller.LizardMouseEnabled = false;
             if (isInitialized == false)
@@ -152,6 +179,9 @@ namespace neptune_osk
 
         private void ToggleOSK()
         {
+            if (Enable == false)
+                return;
+
             if (Osklib.OnScreenKeyboard.IsOpened())
             {
                 controller.LizardMouseEnabled = true;
@@ -168,7 +198,8 @@ namespace neptune_osk
 
         private void toggleOskButton_Click(object sender, EventArgs e)
         {
-            ToggleOSK();
+            if(Enable)
+                ToggleOSK();
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -240,6 +271,9 @@ namespace neptune_osk
 
         private Task Controller_OnControllerInputReceived(NeptuneControllerInputEventArgs e)
         {
+            if (Enable == false)
+                return Task.CompletedTask;
+
             if(isToggleShortcutSetting)
             {
                 List<NeptuneControllerButton> currentButton = new List<NeptuneControllerButton>();
@@ -334,15 +368,6 @@ namespace neptune_osk
             return Task.CompletedTask;
         }
 
-        private void oskTransApplyButton_Click(object sender, EventArgs e)
-        {
-            SetOskTrans((byte)oskAlphaTrackBar.Value);
-        }
-
-        private void oskAlphaTrackBar_Scroll(object sender, EventArgs e)
-        {
-        }
-
         private void oskAlphaTrackBar_ValueChanged(object sender, EventArgs e)
         {
             oskTransparentLabel.Text = $"OSK Transparent : {oskAlphaTrackBar.Value}";
@@ -355,24 +380,10 @@ namespace neptune_osk
             Overlay.OverlabPercentage = overlabTrackBar.Value;
         }
 
-        private void overlabTrackBar_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
         private void offsetYTrackBar_ValueChanged(object sender, EventArgs e)
         {
             offsetYLabel.Text = $"Offset Y : {offsetYTrackBar.Value}";
             Overlay.OffsetY = offsetYTrackBar.Value;
-        }
-
-        private void offsetYTrackBar_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
-        private void testButton_Click(object sender, EventArgs e)
-        {
         }
 
         private void toggleShortCutTextBox_Enter(object sender, EventArgs e)
@@ -490,11 +501,6 @@ namespace neptune_osk
             this.Hide();
         }
 
-        private void testTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void hideStartupCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             settings.MinimizeOnStartup = hideStartupCheckBox.Checked;
@@ -506,9 +512,25 @@ namespace neptune_osk
                 this.Hide();
         }
 
-        private void testButton_Click_1(object sender, EventArgs e)
+        private void enableCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            Overlay.AddEventTouch(100, 100);
+            if(sender != enableCheckBox)
+            {
+                return;
+            }
+
+            if(enableCheckBox.Checked)
+            {
+                enableToolStripMenuItem.Checked = true;
+                disableToolStripMenuItem.Checked = false;
+                Enable = true;
+            }
+            else
+            {
+                enableToolStripMenuItem.Checked = false;
+                disableToolStripMenuItem.Checked = true;
+                Enable = false;
+            }
         }
     }
 }

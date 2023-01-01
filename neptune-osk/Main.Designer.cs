@@ -48,10 +48,14 @@
             this.deleteSelectedShortcutButton = new System.Windows.Forms.Button();
             this.addStartupCheckBox = new System.Windows.Forms.CheckBox();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.enableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.disableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hideStartupCheckBox = new System.Windows.Forms.CheckBox();
             this.saveButton = new System.Windows.Forms.Button();
+            this.enableCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.oskAlphaTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.overlabTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.offsetYTrackBar)).BeginInit();
@@ -61,7 +65,7 @@
             // toggleOskButton
             // 
             this.toggleOskButton.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.toggleOskButton.Location = new System.Drawing.Point(0, 449);
+            this.toggleOskButton.Location = new System.Drawing.Point(0, 484);
             this.toggleOskButton.Name = "toggleOskButton";
             this.toggleOskButton.Size = new System.Drawing.Size(371, 32);
             this.toggleOskButton.TabIndex = 0;
@@ -71,19 +75,18 @@
             // 
             // testTextBox
             // 
-            this.testTextBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.testTextBox.Location = new System.Drawing.Point(0, 0);
+            this.testTextBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.testTextBox.Location = new System.Drawing.Point(0, 461);
             this.testTextBox.Name = "testTextBox";
             this.testTextBox.Size = new System.Drawing.Size(371, 23);
             this.testTextBox.TabIndex = 1;
             this.testTextBox.Visible = false;
-            this.testTextBox.TextChanged += new System.EventHandler(this.testTextBox_TextChanged);
             // 
             // oskTransparentLabel
             // 
             this.oskTransparentLabel.AutoSize = true;
             this.oskTransparentLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.oskTransparentLabel.Location = new System.Drawing.Point(0, 23);
+            this.oskTransparentLabel.Location = new System.Drawing.Point(0, 19);
             this.oskTransparentLabel.Name = "oskTransparentLabel";
             this.oskTransparentLabel.Size = new System.Drawing.Size(96, 15);
             this.oskTransparentLabel.TabIndex = 3;
@@ -93,21 +96,20 @@
             // oskAlphaTrackBar
             // 
             this.oskAlphaTrackBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.oskAlphaTrackBar.Location = new System.Drawing.Point(0, 38);
+            this.oskAlphaTrackBar.Location = new System.Drawing.Point(0, 34);
             this.oskAlphaTrackBar.Maximum = 255;
             this.oskAlphaTrackBar.Name = "oskAlphaTrackBar";
             this.oskAlphaTrackBar.Size = new System.Drawing.Size(371, 45);
             this.oskAlphaTrackBar.TabIndex = 4;
             this.oskAlphaTrackBar.TickFrequency = 10;
             this.oskAlphaTrackBar.Value = 127;
-            this.oskAlphaTrackBar.Scroll += new System.EventHandler(this.oskAlphaTrackBar_Scroll);
             this.oskAlphaTrackBar.ValueChanged += new System.EventHandler(this.oskAlphaTrackBar_ValueChanged);
             // 
             // overlabPercentageLabel
             // 
             this.overlabPercentageLabel.AutoSize = true;
             this.overlabPercentageLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.overlabPercentageLabel.Location = new System.Drawing.Point(0, 83);
+            this.overlabPercentageLabel.Location = new System.Drawing.Point(0, 79);
             this.overlabPercentageLabel.Name = "overlabPercentageLabel";
             this.overlabPercentageLabel.Size = new System.Drawing.Size(107, 15);
             this.overlabPercentageLabel.TabIndex = 7;
@@ -117,7 +119,7 @@
             // overlabTrackBar
             // 
             this.overlabTrackBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.overlabTrackBar.Location = new System.Drawing.Point(0, 98);
+            this.overlabTrackBar.Location = new System.Drawing.Point(0, 94);
             this.overlabTrackBar.Maximum = 80;
             this.overlabTrackBar.Minimum = 50;
             this.overlabTrackBar.Name = "overlabTrackBar";
@@ -125,26 +127,24 @@
             this.overlabTrackBar.TabIndex = 8;
             this.overlabTrackBar.TickFrequency = 2;
             this.overlabTrackBar.Value = 55;
-            this.overlabTrackBar.Scroll += new System.EventHandler(this.overlabTrackBar_Scroll);
             this.overlabTrackBar.ValueChanged += new System.EventHandler(this.overlabTrackBar_ValueChanged);
             // 
             // offsetYTrackBar
             // 
             this.offsetYTrackBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.offsetYTrackBar.Location = new System.Drawing.Point(0, 158);
+            this.offsetYTrackBar.Location = new System.Drawing.Point(0, 154);
             this.offsetYTrackBar.Maximum = 300;
             this.offsetYTrackBar.Name = "offsetYTrackBar";
             this.offsetYTrackBar.Size = new System.Drawing.Size(371, 45);
             this.offsetYTrackBar.TabIndex = 10;
             this.offsetYTrackBar.TickFrequency = 30;
-            this.offsetYTrackBar.Scroll += new System.EventHandler(this.offsetYTrackBar_Scroll);
             this.offsetYTrackBar.ValueChanged += new System.EventHandler(this.offsetYTrackBar_ValueChanged);
             // 
             // offsetYLabel
             // 
             this.offsetYLabel.AutoSize = true;
             this.offsetYLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.offsetYLabel.Location = new System.Drawing.Point(0, 143);
+            this.offsetYLabel.Location = new System.Drawing.Point(0, 139);
             this.offsetYLabel.Name = "offsetYLabel";
             this.offsetYLabel.Size = new System.Drawing.Size(51, 15);
             this.offsetYLabel.TabIndex = 9;
@@ -155,7 +155,7 @@
             // 
             this.ToggleShortCutLabel.AutoSize = true;
             this.ToggleShortCutLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ToggleShortCutLabel.Location = new System.Drawing.Point(0, 203);
+            this.ToggleShortCutLabel.Location = new System.Drawing.Point(0, 199);
             this.ToggleShortCutLabel.Name = "ToggleShortCutLabel";
             this.ToggleShortCutLabel.Size = new System.Drawing.Size(237, 15);
             this.ToggleShortCutLabel.TabIndex = 11;
@@ -165,7 +165,7 @@
             // toggleShortCutTextBox
             // 
             this.toggleShortCutTextBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.toggleShortCutTextBox.Location = new System.Drawing.Point(0, 218);
+            this.toggleShortCutTextBox.Location = new System.Drawing.Point(0, 214);
             this.toggleShortCutTextBox.Name = "toggleShortCutTextBox";
             this.toggleShortCutTextBox.Size = new System.Drawing.Size(371, 23);
             this.toggleShortCutTextBox.TabIndex = 12;
@@ -183,7 +183,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Location = new System.Drawing.Point(0, 241);
+            this.label2.Location = new System.Drawing.Point(0, 237);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(169, 15);
             this.label2.TabIndex = 15;
@@ -195,7 +195,7 @@
             this.buttonShortCutListBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonShortCutListBox.FormattingEnabled = true;
             this.buttonShortCutListBox.ItemHeight = 15;
-            this.buttonShortCutListBox.Location = new System.Drawing.Point(0, 256);
+            this.buttonShortCutListBox.Location = new System.Drawing.Point(0, 252);
             this.buttonShortCutListBox.Name = "buttonShortCutListBox";
             this.buttonShortCutListBox.ScrollAlwaysVisible = true;
             this.buttonShortCutListBox.Size = new System.Drawing.Size(371, 34);
@@ -205,7 +205,7 @@
             // 
             this.steamButtonComboBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.steamButtonComboBox.FormattingEnabled = true;
-            this.steamButtonComboBox.Location = new System.Drawing.Point(0, 290);
+            this.steamButtonComboBox.Location = new System.Drawing.Point(0, 286);
             this.steamButtonComboBox.Name = "steamButtonComboBox";
             this.steamButtonComboBox.Size = new System.Drawing.Size(371, 23);
             this.steamButtonComboBox.TabIndex = 18;
@@ -213,7 +213,7 @@
             // addMapButton
             // 
             this.addMapButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.addMapButton.Location = new System.Drawing.Point(0, 313);
+            this.addMapButton.Location = new System.Drawing.Point(0, 309);
             this.addMapButton.Name = "addMapButton";
             this.addMapButton.Size = new System.Drawing.Size(371, 21);
             this.addMapButton.TabIndex = 19;
@@ -224,7 +224,7 @@
             // deleteSelectedShortcutButton
             // 
             this.deleteSelectedShortcutButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.deleteSelectedShortcutButton.Location = new System.Drawing.Point(0, 334);
+            this.deleteSelectedShortcutButton.Location = new System.Drawing.Point(0, 330);
             this.deleteSelectedShortcutButton.Name = "deleteSelectedShortcutButton";
             this.deleteSelectedShortcutButton.Size = new System.Drawing.Size(371, 21);
             this.deleteSelectedShortcutButton.TabIndex = 20;
@@ -236,7 +236,7 @@
             // 
             this.addStartupCheckBox.AutoSize = true;
             this.addStartupCheckBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.addStartupCheckBox.Location = new System.Drawing.Point(0, 355);
+            this.addStartupCheckBox.Location = new System.Drawing.Point(0, 351);
             this.addStartupCheckBox.Name = "addStartupCheckBox";
             this.addStartupCheckBox.Size = new System.Drawing.Size(371, 19);
             this.addStartupCheckBox.TabIndex = 21;
@@ -247,28 +247,50 @@
             // contextMenuStrip
             // 
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.enableToolStripMenuItem,
+            this.disableToolStripMenuItem,
+            this.toolStripSeparator1,
             this.showToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(105, 48);
+            this.contextMenuStrip.Size = new System.Drawing.Size(114, 98);
+            // 
+            // enableToolStripMenuItem
+            // 
+            this.enableToolStripMenuItem.Checked = true;
+            this.enableToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.enableToolStripMenuItem.Name = "enableToolStripMenuItem";
+            this.enableToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.enableToolStripMenuItem.Text = "Enable";
+            // 
+            // disableToolStripMenuItem
+            // 
+            this.disableToolStripMenuItem.Name = "disableToolStripMenuItem";
+            this.disableToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.disableToolStripMenuItem.Text = "Disable";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(110, 6);
             // 
             // showToolStripMenuItem
             // 
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
-            this.showToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.showToolStripMenuItem.Text = "Show";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // hideStartupCheckBox
             // 
             this.hideStartupCheckBox.AutoSize = true;
             this.hideStartupCheckBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.hideStartupCheckBox.Location = new System.Drawing.Point(0, 374);
+            this.hideStartupCheckBox.Location = new System.Drawing.Point(0, 370);
             this.hideStartupCheckBox.Name = "hideStartupCheckBox";
             this.hideStartupCheckBox.Size = new System.Drawing.Size(371, 19);
             this.hideStartupCheckBox.TabIndex = 23;
@@ -279,19 +301,33 @@
             // saveButton
             // 
             this.saveButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.saveButton.Location = new System.Drawing.Point(0, 393);
+            this.saveButton.Location = new System.Drawing.Point(0, 389);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(371, 55);
+            this.saveButton.Size = new System.Drawing.Size(371, 50);
             this.saveButton.TabIndex = 24;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
+            // enableCheckBox
+            // 
+            this.enableCheckBox.AutoSize = true;
+            this.enableCheckBox.Checked = true;
+            this.enableCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.enableCheckBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.enableCheckBox.Location = new System.Drawing.Point(0, 0);
+            this.enableCheckBox.Name = "enableCheckBox";
+            this.enableCheckBox.Size = new System.Drawing.Size(371, 19);
+            this.enableCheckBox.TabIndex = 25;
+            this.enableCheckBox.Text = "Enable";
+            this.enableCheckBox.UseVisualStyleBackColor = true;
+            this.enableCheckBox.CheckedChanged += new System.EventHandler(this.enableCheckBox_CheckedChanged);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(371, 481);
+            this.ClientSize = new System.Drawing.Size(371, 516);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.hideStartupCheckBox);
             this.Controls.Add(this.addStartupCheckBox);
@@ -310,6 +346,7 @@
             this.Controls.Add(this.oskTransparentLabel);
             this.Controls.Add(this.testTextBox);
             this.Controls.Add(this.toggleOskButton);
+            this.Controls.Add(this.enableCheckBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Main";
             this.Text = "OnScreenKeyboard Setting";
@@ -349,5 +386,9 @@
         private ToolStripMenuItem exitToolStripMenuItem;
         private CheckBox hideStartupCheckBox;
         private Button saveButton;
+        private ToolStripMenuItem enableToolStripMenuItem;
+        private ToolStripMenuItem disableToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator1;
+        private CheckBox enableCheckBox;
     }
 }
