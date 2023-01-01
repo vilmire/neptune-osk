@@ -6,7 +6,8 @@ Using Windows OSK with Steamdeck Touchpad
 
 
 - 230101
-Dont use with another steamdeck key binding software.
+
+Do not use with another steamdeck key binding software.
 
 Enable Disable Option updated - v0.0.2
 
