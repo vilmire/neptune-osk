@@ -7,7 +7,8 @@ Using Windows OSK with Steamdeck Touchpad
 
 - 230101
 Dont use with another steamdeck key binding software.
-I will update enable disable tray option.
+
+Enable Disable Option updated
 
 
 
