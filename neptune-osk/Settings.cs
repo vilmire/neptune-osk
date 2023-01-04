@@ -17,6 +17,7 @@ namespace neptune_osk
             OskAlpha = 127;
             OverlabPercentage = 55;
             Offset_Y = 0;
+            EnableLizard = true;
             MinimizeOnStartup = false;
         }
 
@@ -26,6 +27,7 @@ namespace neptune_osk
         public int OskAlpha { get; set; }
         public int OverlabPercentage { get; set; }
         public int Offset_Y { get; set; }
+        public bool EnableLizard { get; set; }
         public NeptuneControllerButton[] ToggleShortCut { get; set; }
         public Dictionary<NeptuneControllerButton, Point> ClickShortCut { get; set; }
 

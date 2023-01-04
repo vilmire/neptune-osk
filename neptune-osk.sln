@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "neptune-hidapi.net", "neptu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hidapi.net", "hidapi.net\hidapi.net\hidapi.net.csproj", "{9B860078-9AD1-45DD-8F85-E6D806E5DC9B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeptuneOskOverlay", "NeptuneOskOverlay\NeptuneOskOverlay.csproj", "{65BE7575-FAE1-4B72-9D82-DF8BF1130A96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,14 @@ Global
 		{9B860078-9AD1-45DD-8F85-E6D806E5DC9B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9B860078-9AD1-45DD-8F85-E6D806E5DC9B}.Release|x64.ActiveCfg = Release|x64
 		{9B860078-9AD1-45DD-8F85-E6D806E5DC9B}.Release|x64.Build.0 = Release|x64
+		{65BE7575-FAE1-4B72-9D82-DF8BF1130A96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65BE7575-FAE1-4B72-9D82-DF8BF1130A96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65BE7575-FAE1-4B72-9D82-DF8BF1130A96}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{65BE7575-FAE1-4B72-9D82-DF8BF1130A96}.Debug|x64.Build.0 = Debug|Any CPU
+		{65BE7575-FAE1-4B72-9D82-DF8BF1130A96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65BE7575-FAE1-4B72-9D82-DF8BF1130A96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65BE7575-FAE1-4B72-9D82-DF8BF1130A96}.Release|x64.ActiveCfg = Release|Any CPU
+		{65BE7575-FAE1-4B72-9D82-DF8BF1130A96}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

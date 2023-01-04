@@ -1,5 +1,6 @@
 ﻿
 using GameOverlay.Windows;
+using System.Diagnostics;
 using System.Text;
 using static neptune_osk.Util;
 using Font = GameOverlay.Drawing.Font;
@@ -33,6 +34,8 @@ namespace neptune_osk
         public int OverlabPercentage = 50;
         public int OffsetY = 0;
 
+        Process overlayFakeProc = null;
+
         public Overlay()
         {
             InitializeComponent();
@@ -64,12 +67,32 @@ namespace neptune_osk
         {
             if (_window.IsInitialized)
                 _window.Show();
+
+            if(overlayFakeProc == null)
+            {
+                ProcessStartInfo processStartInfo = new ProcessStartInfo
+                {
+                    UseShellExecute = false,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    CreateNoWindow = true,
+                    FileName = "NeptuneOskOverlay"
+                };
+                overlayFakeProc = Process.Start(processStartInfo);
+                overlayFakeProc.PriorityClass = ProcessPriorityClass.AboveNormal;
+            }
         }
 
         public void Hide()
         {
             if(_window.IsInitialized)
                 _window.Hide();
+
+            if(overlayFakeProc != null)
+            {
+                overlayFakeProc.Kill();
+                overlayFakeProc.Dispose();
+                overlayFakeProc = null;
+            }
         }
              
 
@@ -98,13 +121,13 @@ namespace neptune_osk
         {
             var gfx = e.Graphics;
 
-            var padding = 16;
-            var infoText = new StringBuilder()
-                .Append("FPS: ").Append(gfx.FPS.ToString().PadRight(padding))
-                .Append("FrameTime: ").Append(e.FrameTime.ToString().PadRight(padding))
-                .Append("FrameCount: ").Append(e.FrameCount.ToString().PadRight(padding))
-                .Append("DeltaTime: ").Append(e.DeltaTime.ToString().PadRight(padding))
-                .ToString();
+            //var padding = 16;
+            //var infoText = new StringBuilder()
+            //    .Append("FPS: ").Append(gfx.FPS.ToString().PadRight(padding))
+            //    .Append("FrameTime: ").Append(e.FrameTime.ToString().PadRight(padding))
+            //    .Append("FrameCount: ").Append(e.FrameCount.ToString().PadRight(padding))
+            //    .Append("DeltaTime: ").Append(e.DeltaTime.ToString().PadRight(padding))
+            //    .ToString();
 
             gfx.ClearScene(_brushes["background"]);
 

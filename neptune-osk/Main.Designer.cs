@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.toggleOskButton = new System.Windows.Forms.Button();
-            this.testTextBox = new System.Windows.Forms.TextBox();
             this.oskTransparentLabel = new System.Windows.Forms.Label();
             this.oskAlphaTrackBar = new System.Windows.Forms.TrackBar();
             this.overlabPercentageLabel = new System.Windows.Forms.Label();
@@ -56,6 +55,7 @@
             this.hideStartupCheckBox = new System.Windows.Forms.CheckBox();
             this.saveButton = new System.Windows.Forms.Button();
             this.enableCheckBox = new System.Windows.Forms.CheckBox();
+            this.LizardEnablecheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.oskAlphaTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.overlabTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.offsetYTrackBar)).BeginInit();
@@ -73,20 +73,11 @@
             this.toggleOskButton.UseVisualStyleBackColor = true;
             this.toggleOskButton.Click += new System.EventHandler(this.toggleOskButton_Click);
             // 
-            // testTextBox
-            // 
-            this.testTextBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.testTextBox.Location = new System.Drawing.Point(0, 461);
-            this.testTextBox.Name = "testTextBox";
-            this.testTextBox.Size = new System.Drawing.Size(371, 23);
-            this.testTextBox.TabIndex = 1;
-            this.testTextBox.Visible = false;
-            // 
             // oskTransparentLabel
             // 
             this.oskTransparentLabel.AutoSize = true;
             this.oskTransparentLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.oskTransparentLabel.Location = new System.Drawing.Point(0, 19);
+            this.oskTransparentLabel.Location = new System.Drawing.Point(0, 38);
             this.oskTransparentLabel.Name = "oskTransparentLabel";
             this.oskTransparentLabel.Size = new System.Drawing.Size(96, 15);
             this.oskTransparentLabel.TabIndex = 3;
@@ -96,7 +87,7 @@
             // oskAlphaTrackBar
             // 
             this.oskAlphaTrackBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.oskAlphaTrackBar.Location = new System.Drawing.Point(0, 34);
+            this.oskAlphaTrackBar.Location = new System.Drawing.Point(0, 53);
             this.oskAlphaTrackBar.Maximum = 255;
             this.oskAlphaTrackBar.Name = "oskAlphaTrackBar";
             this.oskAlphaTrackBar.Size = new System.Drawing.Size(371, 45);
@@ -109,7 +100,7 @@
             // 
             this.overlabPercentageLabel.AutoSize = true;
             this.overlabPercentageLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.overlabPercentageLabel.Location = new System.Drawing.Point(0, 79);
+            this.overlabPercentageLabel.Location = new System.Drawing.Point(0, 98);
             this.overlabPercentageLabel.Name = "overlabPercentageLabel";
             this.overlabPercentageLabel.Size = new System.Drawing.Size(107, 15);
             this.overlabPercentageLabel.TabIndex = 7;
@@ -119,7 +110,7 @@
             // overlabTrackBar
             // 
             this.overlabTrackBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.overlabTrackBar.Location = new System.Drawing.Point(0, 94);
+            this.overlabTrackBar.Location = new System.Drawing.Point(0, 113);
             this.overlabTrackBar.Maximum = 80;
             this.overlabTrackBar.Minimum = 50;
             this.overlabTrackBar.Name = "overlabTrackBar";
@@ -132,7 +123,7 @@
             // offsetYTrackBar
             // 
             this.offsetYTrackBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.offsetYTrackBar.Location = new System.Drawing.Point(0, 154);
+            this.offsetYTrackBar.Location = new System.Drawing.Point(0, 173);
             this.offsetYTrackBar.Maximum = 300;
             this.offsetYTrackBar.Name = "offsetYTrackBar";
             this.offsetYTrackBar.Size = new System.Drawing.Size(371, 45);
@@ -144,7 +135,7 @@
             // 
             this.offsetYLabel.AutoSize = true;
             this.offsetYLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.offsetYLabel.Location = new System.Drawing.Point(0, 139);
+            this.offsetYLabel.Location = new System.Drawing.Point(0, 158);
             this.offsetYLabel.Name = "offsetYLabel";
             this.offsetYLabel.Size = new System.Drawing.Size(51, 15);
             this.offsetYLabel.TabIndex = 9;
@@ -155,7 +146,7 @@
             // 
             this.ToggleShortCutLabel.AutoSize = true;
             this.ToggleShortCutLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ToggleShortCutLabel.Location = new System.Drawing.Point(0, 199);
+            this.ToggleShortCutLabel.Location = new System.Drawing.Point(0, 218);
             this.ToggleShortCutLabel.Name = "ToggleShortCutLabel";
             this.ToggleShortCutLabel.Size = new System.Drawing.Size(237, 15);
             this.ToggleShortCutLabel.TabIndex = 11;
@@ -165,7 +156,7 @@
             // toggleShortCutTextBox
             // 
             this.toggleShortCutTextBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.toggleShortCutTextBox.Location = new System.Drawing.Point(0, 214);
+            this.toggleShortCutTextBox.Location = new System.Drawing.Point(0, 233);
             this.toggleShortCutTextBox.Name = "toggleShortCutTextBox";
             this.toggleShortCutTextBox.Size = new System.Drawing.Size(371, 23);
             this.toggleShortCutTextBox.TabIndex = 12;
@@ -183,7 +174,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Location = new System.Drawing.Point(0, 237);
+            this.label2.Location = new System.Drawing.Point(0, 256);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(169, 15);
             this.label2.TabIndex = 15;
@@ -195,7 +186,7 @@
             this.buttonShortCutListBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonShortCutListBox.FormattingEnabled = true;
             this.buttonShortCutListBox.ItemHeight = 15;
-            this.buttonShortCutListBox.Location = new System.Drawing.Point(0, 252);
+            this.buttonShortCutListBox.Location = new System.Drawing.Point(0, 271);
             this.buttonShortCutListBox.Name = "buttonShortCutListBox";
             this.buttonShortCutListBox.ScrollAlwaysVisible = true;
             this.buttonShortCutListBox.Size = new System.Drawing.Size(371, 34);
@@ -205,7 +196,7 @@
             // 
             this.steamButtonComboBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.steamButtonComboBox.FormattingEnabled = true;
-            this.steamButtonComboBox.Location = new System.Drawing.Point(0, 286);
+            this.steamButtonComboBox.Location = new System.Drawing.Point(0, 305);
             this.steamButtonComboBox.Name = "steamButtonComboBox";
             this.steamButtonComboBox.Size = new System.Drawing.Size(371, 23);
             this.steamButtonComboBox.TabIndex = 18;
@@ -213,7 +204,7 @@
             // addMapButton
             // 
             this.addMapButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.addMapButton.Location = new System.Drawing.Point(0, 309);
+            this.addMapButton.Location = new System.Drawing.Point(0, 328);
             this.addMapButton.Name = "addMapButton";
             this.addMapButton.Size = new System.Drawing.Size(371, 21);
             this.addMapButton.TabIndex = 19;
@@ -224,7 +215,7 @@
             // deleteSelectedShortcutButton
             // 
             this.deleteSelectedShortcutButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.deleteSelectedShortcutButton.Location = new System.Drawing.Point(0, 330);
+            this.deleteSelectedShortcutButton.Location = new System.Drawing.Point(0, 349);
             this.deleteSelectedShortcutButton.Name = "deleteSelectedShortcutButton";
             this.deleteSelectedShortcutButton.Size = new System.Drawing.Size(371, 21);
             this.deleteSelectedShortcutButton.TabIndex = 20;
@@ -236,7 +227,7 @@
             // 
             this.addStartupCheckBox.AutoSize = true;
             this.addStartupCheckBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.addStartupCheckBox.Location = new System.Drawing.Point(0, 351);
+            this.addStartupCheckBox.Location = new System.Drawing.Point(0, 370);
             this.addStartupCheckBox.Name = "addStartupCheckBox";
             this.addStartupCheckBox.Size = new System.Drawing.Size(371, 19);
             this.addStartupCheckBox.TabIndex = 21;
@@ -290,7 +281,7 @@
             // 
             this.hideStartupCheckBox.AutoSize = true;
             this.hideStartupCheckBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.hideStartupCheckBox.Location = new System.Drawing.Point(0, 370);
+            this.hideStartupCheckBox.Location = new System.Drawing.Point(0, 389);
             this.hideStartupCheckBox.Name = "hideStartupCheckBox";
             this.hideStartupCheckBox.Size = new System.Drawing.Size(371, 19);
             this.hideStartupCheckBox.TabIndex = 23;
@@ -301,7 +292,7 @@
             // saveButton
             // 
             this.saveButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.saveButton.Location = new System.Drawing.Point(0, 389);
+            this.saveButton.Location = new System.Drawing.Point(0, 408);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(371, 50);
             this.saveButton.TabIndex = 24;
@@ -322,6 +313,20 @@
             this.enableCheckBox.Text = "Enable";
             this.enableCheckBox.UseVisualStyleBackColor = true;
             this.enableCheckBox.CheckedChanged += new System.EventHandler(this.enableCheckBox_CheckedChanged);
+            // 
+            // LizardEnablecheckBox
+            // 
+            this.LizardEnablecheckBox.AutoSize = true;
+            this.LizardEnablecheckBox.Checked = true;
+            this.LizardEnablecheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.LizardEnablecheckBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.LizardEnablecheckBox.Location = new System.Drawing.Point(0, 19);
+            this.LizardEnablecheckBox.Name = "LizardEnablecheckBox";
+            this.LizardEnablecheckBox.Size = new System.Drawing.Size(371, 19);
+            this.LizardEnablecheckBox.TabIndex = 26;
+            this.LizardEnablecheckBox.Text = "Enable Lizard Mouse";
+            this.LizardEnablecheckBox.UseVisualStyleBackColor = true;
+            this.LizardEnablecheckBox.CheckedChanged += new System.EventHandler(this.LizardEnablecheckBox_CheckedChanged);
             // 
             // Main
             // 
@@ -344,8 +349,8 @@
             this.Controls.Add(this.overlabPercentageLabel);
             this.Controls.Add(this.oskAlphaTrackBar);
             this.Controls.Add(this.oskTransparentLabel);
-            this.Controls.Add(this.testTextBox);
             this.Controls.Add(this.toggleOskButton);
+            this.Controls.Add(this.LizardEnablecheckBox);
             this.Controls.Add(this.enableCheckBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Main";
@@ -365,7 +370,6 @@
         #endregion
 
         private Button toggleOskButton;
-        private TextBox testTextBox;
         private Label oskTransparentLabel;
         private TrackBar oskAlphaTrackBar;
         private Label overlabPercentageLabel;
@@ -390,5 +394,6 @@
         private ToolStripMenuItem disableToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator1;
         private CheckBox enableCheckBox;
+        private CheckBox LizardEnablecheckBox;
     }
 }
