@@ -121,17 +121,7 @@ namespace neptune_osk
         {
             var gfx = e.Graphics;
 
-            //var padding = 16;
-            //var infoText = new StringBuilder()
-            //    .Append("FPS: ").Append(gfx.FPS.ToString().PadRight(padding))
-            //    .Append("FrameTime: ").Append(e.FrameTime.ToString().PadRight(padding))
-            //    .Append("FrameCount: ").Append(e.FrameCount.ToString().PadRight(padding))
-            //    .Append("DeltaTime: ").Append(e.DeltaTime.ToString().PadRight(padding))
-            //    .ToString();
-
             gfx.ClearScene(_brushes["background"]);
-
-            //gfx.DrawTextWithBackground(_fonts["consolas"], _brushes["green"], _brushes["black"], 58, 20, $"{leftTouched}, {leftXPos}, {leftYPos} | {rightTouched}, {rightXPos} , {rightYPos}");//infoText);
 
             if(leftTouched)
             {
@@ -154,19 +144,10 @@ namespace neptune_osk
                 foreach (var pair in _images) pair.Value.Dispose();
             }
 
-            _brushes["black"] = gfx.CreateSolidBrush(0, 0, 0);
-            _brushes["white"] = gfx.CreateSolidBrush(255, 255, 255);
-            _brushes["red"] = gfx.CreateSolidBrush(255, 0, 0);
-            _brushes["green"] = gfx.CreateSolidBrush(0, 255, 0);
             _brushes["touch"] = gfx.CreateSolidBrush(255, 0, 0);
             _brushes["background"] = gfx.CreateSolidBrush(255, 255, 255, 0);
-            _brushes["grid"] = gfx.CreateSolidBrush(255, 255, 255, 0.2f);
-            _brushes["random"] = gfx.CreateSolidBrush(0, 0, 0);
 
             if (e.RecreateResources) return;
-
-            _fonts["arial"] = gfx.CreateFont("Arial", 12);
-            _fonts["consolas"] = gfx.CreateFont("Consolas", 14);
         }
 
         public bool Init()

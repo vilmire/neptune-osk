@@ -117,8 +117,7 @@ namespace neptune_osk
             if (Enable == false)
                 return;
 
-            if (LizardEnablecheckBox.Checked)
-                controller.LizardMouseEnabled = true;
+            controller.LizardMouseEnabled = true;
 
             isOskOpend = false;
             Overlay.Hide();
@@ -131,8 +130,7 @@ namespace neptune_osk
 
             isOskOpend = true;
 
-            if (LizardEnablecheckBox.Checked)
-                controller.LizardMouseEnabled = false;
+            controller.LizardMouseEnabled = false;
 
             if (isInitialized == false)
             {
@@ -189,14 +187,12 @@ namespace neptune_osk
 
             if (Osklib.OnScreenKeyboard.IsOpened())
             {
-                if(LizardEnablecheckBox.Checked)
-                    controller.LizardMouseEnabled = true;
+                controller.LizardMouseEnabled = true;
                 Osklib.OnScreenKeyboard.Close();
             }
             else
             {
-                if (LizardEnablecheckBox.Checked)
-                    controller.LizardMouseEnabled = false;
+                controller.LizardMouseEnabled = false;
                 Osklib.OnScreenKeyboard.Show();
             }
         }
@@ -231,7 +227,6 @@ namespace neptune_osk
                 overlabTrackBar.Value = settings.OverlabPercentage;
                 offsetYTrackBar.Value = settings.Offset_Y;
                 oskAlphaTrackBar.Value = settings.OskAlpha;
-                LizardEnablecheckBox.Checked = settings.EnableLizard;
                 foreach (var clickShortcutKV in settings.ClickShortCut)
                 {
                     buttonShortCutListBox.Items.Add($"{clickShortcutKV.Key}|{clickShortcutKV.Value}");
@@ -253,12 +248,9 @@ namespace neptune_osk
 
                 controller = new NeptuneController();
                 controller.OnControllerInputReceived = input => Task.Run(() => Controller_OnControllerInputReceived(input));
-                
-                if (LizardEnablecheckBox.Checked)
-                {
-                    controller.LizardMouseEnabled = true;
-                    controller.LizardButtonsEnabled = true;
-                }
+
+                controller.LizardMouseEnabled = true;
+                controller.LizardButtonsEnabled = true;
 
                 controller.Open();
 
@@ -455,15 +447,13 @@ namespace neptune_osk
                                 });
                             }
 
-                            if (LizardEnablecheckBox.Checked)
-                                controller.LizardMouseEnabled = false;
+                            controller.LizardMouseEnabled = false;
 
                             break;
                         }
                         Thread.Sleep(10);
 
-                        if (LizardEnablecheckBox.Checked)
-                            controller.LizardMouseEnabled = true;
+                        controller.LizardMouseEnabled = true;
                     }
 
                     if(buttonShortCutListBox.InvokeRequired)
@@ -513,7 +503,6 @@ namespace neptune_osk
             settings.Offset_Y = offsetYTrackBar.Value;
             settings.OverlabPercentage = overlabTrackBar.Value;
             settings.MinimizeOnStartup = hideStartupCheckBox.Checked;
-            settings.EnableLizard = LizardEnablecheckBox.Checked;
 
             settings.Save();
         }
@@ -553,23 +542,6 @@ namespace neptune_osk
                 enableToolStripMenuItem.Checked = false;
                 disableToolStripMenuItem.Checked = true;
                 Enable = false;
-            }
-        }
-
-        private void LizardEnablecheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (sender != LizardEnablecheckBox)
-            {
-                return;
-            }
-
-            if (LizardEnablecheckBox.Checked)
-            {
-                settings.EnableLizard = true;
-            }
-            else
-            {
-                settings.EnableLizard = false;
             }
         }
     }
