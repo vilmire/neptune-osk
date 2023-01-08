@@ -3,13 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "neptune-osk", "neptune-osk\neptune-osk.csproj", "{C1F50CA1-4755-494A-B338-E4A7D77C9197}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "neptune-osk_old", "neptune-osk\neptune-osk_old.csproj", "{C1F50CA1-4755-494A-B338-E4A7D77C9197}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Osklib", "osklib\Osklib\Osklib.csproj", "{4199FA38-A598-44C3-998E-8110415B75F3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "neptune-hidapi.net", "neptune-hidapi.net\neptune-hidapi.net.csproj", "{F7283783-81EF-4CD2-BD86-598FE193C11F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hidapi.net", "hidapi.net\hidapi.net\hidapi.net.csproj", "{9B860078-9AD1-45DD-8F85-E6D806E5DC9B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeptuneOskMain", "neptune-osk-main\NeptuneOskMain.csproj", "{8F541FB5-65A5-482B-8165-0546944BC9C1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DC1C61EE-5F6B-4324-8287-2EF06793E874} = {DC1C61EE-5F6B-4324-8287-2EF06793E874}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeptuneOskOverlay", "neptune_osk_overlay\NeptuneOskOverlay.csproj", "{DC1C61EE-5F6B-4324-8287-2EF06793E874}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeptuneOskShared", "NeptuneOskShared\NeptuneOskShared.csproj", "{35BAD6B5-033E-4541-BCD3-C2205184B14C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +60,30 @@ Global
 		{9B860078-9AD1-45DD-8F85-E6D806E5DC9B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9B860078-9AD1-45DD-8F85-E6D806E5DC9B}.Release|x64.ActiveCfg = Release|x64
 		{9B860078-9AD1-45DD-8F85-E6D806E5DC9B}.Release|x64.Build.0 = Release|x64
+		{8F541FB5-65A5-482B-8165-0546944BC9C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F541FB5-65A5-482B-8165-0546944BC9C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F541FB5-65A5-482B-8165-0546944BC9C1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8F541FB5-65A5-482B-8165-0546944BC9C1}.Debug|x64.Build.0 = Debug|Any CPU
+		{8F541FB5-65A5-482B-8165-0546944BC9C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F541FB5-65A5-482B-8165-0546944BC9C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F541FB5-65A5-482B-8165-0546944BC9C1}.Release|x64.ActiveCfg = Release|Any CPU
+		{8F541FB5-65A5-482B-8165-0546944BC9C1}.Release|x64.Build.0 = Release|Any CPU
+		{DC1C61EE-5F6B-4324-8287-2EF06793E874}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC1C61EE-5F6B-4324-8287-2EF06793E874}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC1C61EE-5F6B-4324-8287-2EF06793E874}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DC1C61EE-5F6B-4324-8287-2EF06793E874}.Debug|x64.Build.0 = Debug|Any CPU
+		{DC1C61EE-5F6B-4324-8287-2EF06793E874}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC1C61EE-5F6B-4324-8287-2EF06793E874}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC1C61EE-5F6B-4324-8287-2EF06793E874}.Release|x64.ActiveCfg = Release|Any CPU
+		{DC1C61EE-5F6B-4324-8287-2EF06793E874}.Release|x64.Build.0 = Release|Any CPU
+		{35BAD6B5-033E-4541-BCD3-C2205184B14C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35BAD6B5-033E-4541-BCD3-C2205184B14C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35BAD6B5-033E-4541-BCD3-C2205184B14C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{35BAD6B5-033E-4541-BCD3-C2205184B14C}.Debug|x64.Build.0 = Debug|Any CPU
+		{35BAD6B5-033E-4541-BCD3-C2205184B14C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35BAD6B5-033E-4541-BCD3-C2205184B14C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35BAD6B5-033E-4541-BCD3-C2205184B14C}.Release|x64.ActiveCfg = Release|Any CPU
+		{35BAD6B5-033E-4541-BCD3-C2205184B14C}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

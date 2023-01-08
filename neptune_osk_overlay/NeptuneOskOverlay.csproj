@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GameOverlay.Net" Version="4.3.1" />
+    <PackageReference Include="NDesk.Options" Version="0.2.1" />
+    <PackageReference Include="SharedMemory" Version="2.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NeptuneOskShared\NeptuneOskShared.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(TargetDir)*.*&quot; &quot;$(SolutionDir)\neptune-osk-main\bin\Debug\net6.0-windows&quot; /Y /S&#xD;&#xA;" />
+  </Target>
+
+</Project>
