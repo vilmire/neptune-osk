@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <RootNamespace>neptune_osk</RootNamespace>
+    <RootNamespace>neptune_osk_main</RootNamespace>
     <Nullable>disable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -13,10 +14,12 @@
   <ItemGroup>
     <PackageReference Include="GameOverlay.Net" Version="4.3.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="SharedMemory" Version="2.3.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\neptune-hidapi.net\neptune-hidapi.net.csproj" />
+    <ProjectReference Include="..\NeptuneOskShared\NeptuneOskShared.csproj" />
     <ProjectReference Include="..\osklib\Osklib\Osklib.csproj" />
   </ItemGroup>
 
@@ -24,21 +27,27 @@
     <None Update="hidapi.net.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="NeptuneOskOverlay.deps.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="NeptuneOskOverlay.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="NeptuneOskOverlay.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="NeptuneOskOverlay.pdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="NeptuneOskOverlay.runtimeconfig.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </Project>

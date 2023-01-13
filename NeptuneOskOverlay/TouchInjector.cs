@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace neptune_osk
+namespace NeptuneOskOverlay
 {
     static class IdGenerator
     {

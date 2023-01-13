@@ -1,8 +1,8 @@
 
-using GameOverlay.Drawing;
-using GameOverlay.Windows;
 using Microsoft.Win32;
 using neptune_hidapi.net;
+using neptune_osk_main;
+using NeptuneOskShared;
 using Osklib;
 using System;
 using System.Collections.Generic;
@@ -18,13 +18,7 @@ using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 using Application = System.Windows.Forms.Application;
-using Color = GameOverlay.Drawing.Color;
-using Font = GameOverlay.Drawing.Font;
-using Graphics = GameOverlay.Drawing.Graphics;
-using Image = GameOverlay.Drawing.Image;
 using Point = System.Drawing.Point;
-using Rectangle = GameOverlay.Drawing.Rectangle;
-using SolidBrush = GameOverlay.Drawing.SolidBrush;
 
 namespace neptune_osk
 {
@@ -40,17 +34,18 @@ namespace neptune_osk
         bool isShortcutSetting = false;
         bool isToggled = false;
         DateTime shortCutSettingStarted;
-
-        Dictionary<NeptuneControllerButton, bool> prevState = new Dictionary<NeptuneControllerButton, bool>();
+        OverlayController overlayController;
 
         Settings settings = new Settings();
-        Overlay Overlay = new Overlay();
 
         public Main()
         {
             Settings loadedSetting = Settings.Load();
             if (loadedSetting != null)
                 settings = loadedSetting;
+
+            overlayController = new OverlayController(ref settings);
+
 
             onScreenKeyboardWatcher = new Osklib.OnScreenKeyboardWatcher();
             onScreenKeyboardWatcher.KeyboardOpened += OnScreenKeyboardWatcher_KeyboardOpened;
@@ -63,6 +58,14 @@ namespace neptune_osk
             exitToolStripMenuItem.Click += ExitToolStripMenuItem_Click;
             enableToolStripMenuItem.Click += EnableToolStripMenuItem_Click;
             disableToolStripMenuItem.Click += DisableToolStripMenuItem_Click;
+        }
+
+        public void SetOverlayRect(int x, int y, int w, int h)
+        {
+            overlayController.OskRect.Pos_X = x;
+            overlayController.OskRect.Pos_Y = y;
+            overlayController.OskRect.Width = w;
+            overlayController.OskRect.Height = h;
         }
 
         private void EnableToolStripMenuItem_Click(object sender, EventArgs e)
@@ -108,8 +111,12 @@ namespace neptune_osk
             if (Enable == false)
                 return;
 
+
             if (isInitialized && onScreenKeyboardWatcher.Location.Right - onScreenKeyboardWatcher.Location.Left > 0)
-                Overlay.SetRect(onScreenKeyboardWatcher.Location.Left, onScreenKeyboardWatcher.Location.Top, onScreenKeyboardWatcher.Location.Right - onScreenKeyboardWatcher.Location.Left, onScreenKeyboardWatcher.Location.Bottom - onScreenKeyboardWatcher.Location.Top);
+            {
+                SetOverlayRect(onScreenKeyboardWatcher.Location.Left, onScreenKeyboardWatcher.Location.Top, onScreenKeyboardWatcher.Location.Right - onScreenKeyboardWatcher.Location.Left, onScreenKeyboardWatcher.Location.Bottom - onScreenKeyboardWatcher.Location.Top);
+            }
+                
         }
 
         private void OnScreenKeyboardWatcher_KeyboardClosed(object sender, EventArgs e)
@@ -120,7 +127,8 @@ namespace neptune_osk
             controller.LizardMouseEnabled = true;
 
             isOskOpend = false;
-            Overlay.Hide();
+
+            overlayController.Stop();
         }
 
         private void OnScreenKeyboardWatcher_KeyboardOpened(object sender, EventArgs e)
@@ -134,9 +142,18 @@ namespace neptune_osk
 
             if (isInitialized == false)
             {
-                bool result = Overlay.Init();
-                Overlay.SetRect(onScreenKeyboardWatcher.Location.Left, onScreenKeyboardWatcher.Location.Top, onScreenKeyboardWatcher.Location.Right - onScreenKeyboardWatcher.Location.Left, onScreenKeyboardWatcher.Location.Bottom - onScreenKeyboardWatcher.Location.Top);
-                if(oskAlphaTrackBar.InvokeRequired)
+                while(true)
+                {
+                    if (onScreenKeyboardWatcher.Location.Right - onScreenKeyboardWatcher.Location.Left > 0)
+                    {
+                        SetOverlayRect(onScreenKeyboardWatcher.Location.Left, onScreenKeyboardWatcher.Location.Top, onScreenKeyboardWatcher.Location.Right - onScreenKeyboardWatcher.Location.Left, onScreenKeyboardWatcher.Location.Bottom - onScreenKeyboardWatcher.Location.Top);
+                        break;
+                    }
+                    Thread.Sleep(1);
+                }
+
+
+                if (oskAlphaTrackBar.InvokeRequired)
                 {
                     oskAlphaTrackBar.Invoke(() =>
                     {
@@ -148,14 +165,19 @@ namespace neptune_osk
                     SetOskTrans((byte)oskAlphaTrackBar.Value);
                 }
                 isInitialized = true;
-
-                if(result == false)
-                {
-                    MessageBox.Show("Error", "osk not found.");
-                }
             }
-            Overlay.Show();
-            
+
+            if(overlabTrackBar.InvokeRequired)
+            {
+                overlabTrackBar.Invoke(() =>
+                {
+                    overlayController.StartOverlay(overlabTrackBar.Value, Color.Red);
+                });
+            }
+            else
+            {
+                overlayController.StartOverlay(overlabTrackBar.Value, Color.Red);
+            }
         }
 
         private void SetOskTrans(byte alpha)
@@ -214,8 +236,7 @@ namespace neptune_osk
                 }
 
                 notifyIcon.ContextMenuStrip = contextMenuStrip;
-                RegistryKey rk = Registry.CurrentUser.OpenSubKey
-                    ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+                RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
                 object value = rk.GetValue(Application.ProductName);
                 if (value != null)
@@ -239,12 +260,9 @@ namespace neptune_osk
                 shortcutText = shortcutText.Remove(shortcutText.Length - 1);
                 toggleShortCutTextBox.Text = shortcutText;
 
-
-
                 steamButtonComboBox.DataSource = Enum.GetValues(typeof(NeptuneControllerButton));
                 overlabPercentageLabel.Text = $"OverlabPercentage : {overlabTrackBar.Value}";
                 oskTransparentLabel.Text = $"OSK Transparent : {oskAlphaTrackBar.Value}";
-                Overlay.OverlabPercentage = overlabTrackBar.Value;
 
                 controller = new NeptuneController();
                 controller.OnControllerInputReceived = input => Task.Run(() => Controller_OnControllerInputReceived(input));
@@ -253,8 +271,6 @@ namespace neptune_osk
                 controller.LizardButtonsEnabled = true;
 
                 controller.Open();
-
-                TouchInjector.InitializeTouchInjection();
 
                 //testTextBox.Text = $"SteamDeck Neptune Connected!";
             }
@@ -321,57 +337,9 @@ namespace neptune_osk
                 return Task.CompletedTask;
             }
 
-            if(isOskOpend)
+            if(isOskOpend && isShortcutSetting == false)
             {
-                if (isShortcutSetting == false)
-                {
-                    foreach (var shortcut in settings.ClickShortCut.Keys)
-                    {
-                        if (prevState[shortcut] == false && e.State.ButtonState[shortcut])
-                        {
-                            Overlay.AddEventTouch(settings.ClickShortCut[shortcut].X, settings.ClickShortCut[shortcut].Y);                            
-                        }
-                    }
-                }
-
-                if (e.State.AxesState[NeptuneControllerAxis.LeftPadX] != 0 && e.State.AxesState[NeptuneControllerAxis.LeftPadY] != 0)
-                {
-                    float leftX = (float)Util.Map(short.MinValue, short.MaxValue, 0, 1, e.State.AxesState[NeptuneControllerAxis.LeftPadX]);
-                    float leftY = (float)Util.Map(short.MinValue, short.MaxValue, 0, 1, e.State.AxesState[NeptuneControllerAxis.LeftPadY]);
-
-                    Overlay.SetLeftPadPos(leftX, 1 - leftY);
-                }
-                else
-                {
-                    Overlay.leftTouched = false;
-                }
-
-                if (e.State.AxesState[NeptuneControllerAxis.RightPadX] != 0 && e.State.AxesState[NeptuneControllerAxis.RightPadY] != 0)
-                {
-                    float rightX = (float)Util.Map(short.MinValue, short.MaxValue, 0, 1, e.State.AxesState[NeptuneControllerAxis.RightPadX]);
-                    float rightY = (float)Util.Map(short.MinValue, short.MaxValue, 0, 1, e.State.AxesState[NeptuneControllerAxis.RightPadY]);
-
-                    Overlay.SetRightPadPos(rightX, 1 - rightY);
-                }
-                else
-                {
-                    Overlay.rightTouched = false;
-                }
-
-
-                Overlay.ProcessTouch(e.State.ButtonState[NeptuneControllerButton.BtnLPadPress], e.State.ButtonState[NeptuneControllerButton.BtnRPadPress]);
-            }
-            else
-            {
-                Overlay.EventTouch.Clear();
-            }
-
-            foreach(var button in e.State.ButtonState.Buttons)
-            {
-                if (prevState.ContainsKey(button) == false)
-                    prevState.Add(button, e.State.ButtonState[button]);
-                else
-                    prevState[button] = e.State.ButtonState[button];
+                overlayController.AddOskEvent(e.State);
             }
 
             return Task.CompletedTask;
@@ -386,13 +354,11 @@ namespace neptune_osk
         private void overlabTrackBar_ValueChanged(object sender, EventArgs e)
         {
             overlabPercentageLabel.Text = $"OverlabPercentage : {overlabTrackBar.Value}";
-            Overlay.OverlabPercentage = overlabTrackBar.Value;
         }
 
         private void offsetYTrackBar_ValueChanged(object sender, EventArgs e)
         {
             offsetYLabel.Text = $"Offset Y : {offsetYTrackBar.Value}";
-            Overlay.OffsetY = offsetYTrackBar.Value;
         }
 
         private void toggleShortCutTextBox_Enter(object sender, EventArgs e)
