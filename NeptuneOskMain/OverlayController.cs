@@ -160,10 +160,6 @@ namespace neptune_osk_main
                     {
                         oskServer.Write<OskEvent>(ref oskEvent);
                     }
-                    else
-                    {
-                        oskServer.Write<OskEvent>(ref oskEvent);
-                    }
 
                     if (token.IsCancellationRequested)
                         return ;
