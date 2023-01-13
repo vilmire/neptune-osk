@@ -24,6 +24,7 @@ namespace NeptuneOskOverlay
 
         public bool[] eventTouchs = new bool[5];
         public bool[] prevEventTouchs = new bool[5];
+        PointerTouchInfo[] touchInfos = new PointerTouchInfo[5];
 
         public bool leftPressed = false;
         PointerTouchInfo leftContact;
@@ -183,24 +184,27 @@ namespace NeptuneOskOverlay
 
         private void ProgressEventTouch(int index, EventTouch eventTouch)
         {
-            ;
-
-            prevEventTouchs[index] = eventTouch.IsPressed;
-        }
-
-        public void AddEventTouch(int xPos, int yPos, int index)
-        {
-
-            Task.Factory.StartNew(() =>
+            if (prevEventTouchs[index] == false && eventTouch.IsPressed)
             {
-                PointerTouchInfo touchInfo = MakePointerTouchInfo(xPos, yPos, 5, 0);
-                touchInfo.PointerInfo.PointerFlags = PointerFlags.DOWN | PointerFlags.INRANGE | PointerFlags.INCONTACT;
-                TouchInjector.InjectTouchInput(1, new PointerTouchInfo[1] { touchInfo });
+                touchInfos[index] = MakePointerTouchInfo(eventTouch.Pos_X, eventTouch.Pos_Y, 5, 0);
+                touchInfos[index].PointerInfo.PointerFlags = PointerFlags.DOWN | PointerFlags.INRANGE | PointerFlags.INCONTACT;
 
-                Thread.Sleep(delay);
-                touchInfo.PointerInfo.PointerFlags = PointerFlags.UP;
-                TouchInjector.InjectTouchInput(1, new PointerTouchInfo[1] { touchInfo });
-            });
+                EventTouch.Enqueue(touchInfos[index]);
+            }
+            else if (prevEventTouchs[index] && eventTouch.IsPressed == false)
+            {
+                touchInfos[index].PointerInfo.PointerFlags = PointerFlags.UP;
+                EventTouch.Enqueue(touchInfos[index]);
+            }
+            else if(eventTouch.IsPressed)
+            {
+                touchInfos[index].Move(eventTouch.Pos_X - touchInfos[index].PointerInfo.PtPixelLocation.X, eventTouch.Pos_Y - touchInfos[index].PointerInfo.PtPixelLocation.Y);
+                PointerFlags oFlags = PointerFlags.INRANGE | PointerFlags.INCONTACT | PointerFlags.UPDATE;
+                touchInfos[index].PointerInfo.PointerFlags = oFlags;
+                EventTouch.Enqueue(touchInfos[index]);
+            }
+            
+            prevEventTouchs[index] = eventTouch.IsPressed;
         }
 
         private void ProcessTouch(bool left, bool right)

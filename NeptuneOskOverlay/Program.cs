@@ -93,7 +93,6 @@ namespace NeptuneOskOverlay
                 Overlay overlay = new Overlay(initOverlay);                
 
                 TouchInjector.InitializeTouchInjection();
-                Console.WriteLine("Buffer Opended.");
                 while (true)
                 {
                     OskEvent oskEvent;

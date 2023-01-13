@@ -17,8 +17,4 @@
     <ProjectReference Include="..\NeptuneOskShared\NeptuneOskShared.csproj" />
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(TargetDir)*.*&quot; &quot;$(SolutionDir)\neptune-osk-main\bin\Debug\net6.0-windows&quot; /Y /S&#xD;&#xA;" />
-  </Target>
-
 </Project>

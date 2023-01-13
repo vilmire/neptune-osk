@@ -41,35 +41,39 @@ namespace neptune_osk_main
             foreach (var shortcut in settings.ClickShortCut.Keys)
             {
                 EventTouch eventTouch = new EventTouch();
-                switch(index)
-                {
-                    case 0:
-                        eventTouch = oskEvent.Event1;
-                        break;
-                    case 1:
-                        eventTouch = oskEvent.Event2;
-                        break;
-                    case 2:
-                        eventTouch = oskEvent.Event3;
-                        break;
-                    case 3:
-                        eventTouch = oskEvent.Event4;
-                        break;
-                    case 4:
-                        eventTouch = oskEvent.Event5;
-                        break;
-                }
 
-                if (prevState[shortcut] == false && state.ButtonState[shortcut])
+                if (state.ButtonState[shortcut])
                 {
                     eventTouch.Pos_X = settings.ClickShortCut[shortcut].X;
                     eventTouch.Pos_Y = settings.ClickShortCut[shortcut].Y;
                     eventTouch.IsPressed = true;
                 }
-                else if (prevState[shortcut] && state.ButtonState[shortcut] == false)
+                else if (state.ButtonState[shortcut] == false)
                 {
                     eventTouch.IsPressed = false;
                 }
+
+                switch (index)
+                {
+                    case 0:
+                        oskEvent.Event1 = eventTouch;
+                        break;
+                    case 1:
+                        oskEvent.Event2 = eventTouch;
+                        break;
+                    case 2:
+                        oskEvent.Event3 = eventTouch;
+                        break;
+                    case 3:
+                        oskEvent.Event4 = eventTouch;
+                        break;
+                    case 4:
+                        oskEvent.Event5 = eventTouch;
+                        break;
+                    default:
+                        continue;
+                }
+
                 ++index;
                 if (index >= 5)
                     break;
@@ -153,6 +157,10 @@ namespace neptune_osk_main
                 {
                     OskEvent oskEvent;
                     if (eventQueue.TryDequeue(out oskEvent))
+                    {
+                        oskServer.Write<OskEvent>(ref oskEvent);
+                    }
+                    else
                     {
                         oskServer.Write<OskEvent>(ref oskEvent);
                     }
