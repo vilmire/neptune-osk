@@ -125,6 +125,7 @@ namespace neptune_osk
                 return;
 
             controller.LizardMouseEnabled = true;
+
             isOskOpend = false;
 
             overlayController.Stop();
@@ -136,7 +137,9 @@ namespace neptune_osk
                 return;
 
             isOskOpend = true;
+
             controller.LizardMouseEnabled = false;
+
             if (isInitialized == false)
             {
                 while(true)
@@ -226,6 +229,12 @@ namespace neptune_osk
         {
             try
             {
+                Process[] fakeoverlays = Process.GetProcessesByName("NeptuneOskOverlay");
+                foreach(Process fakeoverlay in fakeoverlays)
+                {
+                    fakeoverlay.Kill();
+                }
+
                 notifyIcon.ContextMenuStrip = contextMenuStrip;
                 RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
@@ -257,15 +266,17 @@ namespace neptune_osk
 
                 controller = new NeptuneController();
                 controller.OnControllerInputReceived = input => Task.Run(() => Controller_OnControllerInputReceived(input));
+
                 controller.LizardMouseEnabled = true;
                 controller.LizardButtonsEnabled = true;
+
                 controller.Open();
 
-                testTextBox.Text = $"SteamDeck Neptune Connected!";
+                //testTextBox.Text = $"SteamDeck Neptune Connected!";
             }
             catch (Exception ex)
             {
-                testTextBox.Text = ex.Message;
+                //testTextBox.Text = ex.Message;
                 MessageBox.Show($"Error : {ex.Message}");
             }
         }
@@ -401,10 +412,13 @@ namespace neptune_osk
                                     addMapButton.Text = $"Add ShortcutClick";
                                 });
                             }
+
                             controller.LizardMouseEnabled = false;
+
                             break;
                         }
                         Thread.Sleep(10);
+
                         controller.LizardMouseEnabled = true;
                     }
 
