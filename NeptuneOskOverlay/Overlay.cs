@@ -1,22 +1,17 @@
 ﻿
 using GameOverlay.Windows;
-
 using NeptuneOskShared;
 using System.Drawing;
 using System.Text;
-using static neptune_osk.Util;
 using Font = GameOverlay.Drawing.Font;
 using Graphics = GameOverlay.Drawing.Graphics;
 using Image = GameOverlay.Drawing.Image;
 using SolidBrush = GameOverlay.Drawing.SolidBrush;
 
-namespace neptune_osk
 namespace NeptuneOskOverlay
 {
     public partial class Overlay
     {
-        IntPtr oskHandle = IntPtr.Zero;
-
         Graphics gfx;
         private GraphicsWindow _window;
         private Dictionary<string, SolidBrush> _brushes;
@@ -41,7 +36,6 @@ namespace NeptuneOskOverlay
         public int OverlabPercentage = 50;
         public int OffsetY = 0;
 
-        public Overlay()
         InitOverlay _initParam;
 
         public Overlay(InitOverlay receivedInitParam)
@@ -63,7 +57,6 @@ namespace NeptuneOskOverlay
                 TextAntiAliasing = true
             };
 
-            _window = new GraphicsWindow(0, 0, 1280, 600, gfx)
             _window = new GraphicsWindow(_initParam.Target_X, _initParam.Target_Y, _initParam.Target_Width, _initParam.Target_Height, gfx)
             {
                 FPS = 60,
@@ -86,10 +79,10 @@ namespace NeptuneOskOverlay
 
         public void Hide()
         {
-            if(_window.IsInitialized)
+            if (_window.IsInitialized)
                 _window.Hide();
         }
-             
+
 
         private void _window_DestroyGraphics(object sender, DestroyGraphicsEventArgs e)
         {
@@ -110,25 +103,15 @@ namespace NeptuneOskOverlay
             rightYPos = _window.Height * rightY + OffsetY;
             rightTouched = true;
         }
-        
+
 
         private void _window_DrawGraphics(object sender, DrawGraphicsEventArgs e)
         {
             var gfx = e.Graphics;
 
-            var padding = 16;
-            var infoText = new StringBuilder()
-                .Append("FPS: ").Append(gfx.FPS.ToString().PadRight(padding))
-                .Append("FrameTime: ").Append(e.FrameTime.ToString().PadRight(padding))
-                .Append("FrameCount: ").Append(e.FrameCount.ToString().PadRight(padding))
-                .Append("DeltaTime: ").Append(e.DeltaTime.ToString().PadRight(padding))
-                .ToString();
-
             gfx.ClearScene(_brushes["background"]);
 
-            //gfx.DrawTextWithBackground(_fonts["consolas"], _brushes["green"], _brushes["black"], 58, 20, $"{leftTouched}, {leftXPos}, {leftYPos} | {rightTouched}, {rightXPos} , {rightYPos}");//infoText);
-
-            if(leftTouched)
+            if (leftTouched)
             {
                 gfx.DrawCircle(_brushes["touch"], leftXPos, leftYPos, 10, 5.0f);
             }
@@ -149,27 +132,15 @@ namespace NeptuneOskOverlay
                 foreach (var pair in _images) pair.Value.Dispose();
             }
 
-            _brushes["black"] = gfx.CreateSolidBrush(0, 0, 0);
-            _brushes["white"] = gfx.CreateSolidBrush(255, 255, 255);
-            _brushes["red"] = gfx.CreateSolidBrush(255, 0, 0);
-            _brushes["green"] = gfx.CreateSolidBrush(0, 255, 0);
-            _brushes["touch"] = gfx.CreateSolidBrush(255, 0, 0);
-            _brushes["background"] = gfx.CreateSolidBrush(255, 255, 255, 0);
-            _brushes["grid"] = gfx.CreateSolidBrush(255, 255, 255, 0.2f);
-            _brushes["random"] = gfx.CreateSolidBrush(0, 0, 0);
             _brushes["touch"] = gfx.CreateSolidBrush(_initParam.DotColor_R, _initParam.DotColor_G, _initParam.DotColor_B, _initParam.DotColor_A);
             _brushes["background"] = gfx.CreateSolidBrush(255, 255, 255, 50);
 
             if (e.RecreateResources) return;
 
-            _fonts["arial"] = gfx.CreateFont("Arial", 12);
-            _fonts["consolas"] = gfx.CreateFont("Consolas", 14);
-
             //_fonts["arial"] = gfx.CreateFont("Arial", 12);
             //_fonts["consolas"] = gfx.CreateFont("Consolas", 14);
         }
 
-        public bool Init()
         public void Init()
         {
             _window.Create();
@@ -180,18 +151,14 @@ namespace NeptuneOskOverlay
         public void OnReceivedOskEvent(OskEvent oskEvent)
         {
 
-            oskHandle = Util.FindWindow("ApplicationFrameWindow", "");
             ProgressEventTouch(0, oskEvent.Event1);
             ProgressEventTouch(1, oskEvent.Event2);
             ProgressEventTouch(2, oskEvent.Event3);
             ProgressEventTouch(3, oskEvent.Event4);
             ProgressEventTouch(3, oskEvent.Event5);
 
-            bool isValidHandle = (IntPtr.Size == 4) ? (oskHandle.ToInt32() > 0) : (oskHandle.ToInt64() > 0);
-            if (isValidHandle)
             if (oskEvent.Left.IsTouched)
             {
-                return true;
                 float leftX = (float)Util.Map(short.MinValue, short.MaxValue, 0, 1, oskEvent.Left.Pos_X);
                 float leftY = (float)Util.Map(short.MinValue, short.MaxValue, 0, 1, oskEvent.Left.Pos_Y);
                 SetLeftPadPos(leftX, 1 - leftY);
@@ -201,7 +168,6 @@ namespace NeptuneOskOverlay
                 leftTouched = false;
             }
 
-            return false;
             if (oskEvent.Right.IsTouched)
             {
                 float rightX = (float)Util.Map(short.MinValue, short.MaxValue, 0, 1, oskEvent.Right.Pos_X);
@@ -216,22 +182,13 @@ namespace NeptuneOskOverlay
             ProcessTouch(oskEvent.Left.IsPressed, oskEvent.Right.IsPressed);
         }
 
-        public void AddEventTouch(int xPos, int yPos)
         private void ProgressEventTouch(int index, EventTouch eventTouch)
         {
-            Task.Factory.StartNew(() =>
             if (prevEventTouchs[index] == false && eventTouch.IsPressed)
             {
-                PointerTouchInfo touchInfo = MakePointerTouchInfo(xPos, yPos, 5, 0);
-                touchInfo.PointerInfo.PointerFlags = PointerFlags.DOWN | PointerFlags.INRANGE | PointerFlags.INCONTACT;
-                TouchInjector.InjectTouchInput(1, new PointerTouchInfo[1] { touchInfo });
                 touchInfos[index] = MakePointerTouchInfo(eventTouch.Pos_X, eventTouch.Pos_Y, 5, 0);
                 touchInfos[index].PointerInfo.PointerFlags = PointerFlags.DOWN | PointerFlags.INRANGE | PointerFlags.INCONTACT;
 
-                Thread.Sleep(100);
-                touchInfo.PointerInfo.PointerFlags = PointerFlags.UP;
-                TouchInjector.InjectTouchInput(1, new PointerTouchInfo[1] { touchInfo });
-            });
                 EventTouch.Enqueue(touchInfos[index]);
             }
             else if (prevEventTouchs[index] && eventTouch.IsPressed == false)
@@ -239,18 +196,17 @@ namespace NeptuneOskOverlay
                 touchInfos[index].PointerInfo.PointerFlags = PointerFlags.UP;
                 EventTouch.Enqueue(touchInfos[index]);
             }
-            else if(eventTouch.IsPressed)
+            else if (eventTouch.IsPressed)
             {
                 touchInfos[index].Move(eventTouch.Pos_X - touchInfos[index].PointerInfo.PtPixelLocation.X, eventTouch.Pos_Y - touchInfos[index].PointerInfo.PtPixelLocation.Y);
                 PointerFlags oFlags = PointerFlags.INRANGE | PointerFlags.INCONTACT | PointerFlags.UPDATE;
                 touchInfos[index].PointerInfo.PointerFlags = oFlags;
                 EventTouch.Enqueue(touchInfos[index]);
             }
-            
+
             prevEventTouchs[index] = eventTouch.IsPressed;
         }
 
-        public void ProcessTouch(bool left, bool right)
         private void ProcessTouch(bool left, bool right)
         {
             if (leftPressed == false && left)
